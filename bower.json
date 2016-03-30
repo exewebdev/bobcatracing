@@ -1,0 +1,22 @@
+{
+  "name": "bobcatracing",
+  "description": "EXE webdev's second project.",
+  "main": "index.js",
+  "authors": [
+    "Texas State EXE"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "vide": "^0.5.0"
+  }
+}
