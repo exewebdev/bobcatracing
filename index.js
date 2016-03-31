@@ -20,7 +20,7 @@ app.set('view engine', 'html');
 app.set('views', __dirname + "/public");
 
 //If running in development mode, disable swig caching (so we don't have to restart the app)
-if (config.production == false){
+if (config.production === false){
     console.warn("DEVLOPMENT MODE");
     app.set('view cache', false);
     swig.setDefaults({ cache: false });
