@@ -6,18 +6,23 @@
         <script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="/vendors/vide/dist/jquery.vide.js"></script>
         <link rel="stylesheet" href="/vendors/bootstrap/dist/css/bootstrap.min.css" type="text/css"/>
+        <link rel="stylesheet" href="/css/site.css" type="text/css"/>
     </head>
     <body>
-        <nav class="navbar navbar-default">
+        <nav class="navbar navbar-inverse navbar-default navbar-fixed-top">
             
         </nav>
         <div class="jumbotron" id="hero">
+            <div class="hero-video-overlay"></div>
+            <video autoplay loop muted class="hero-video">
+                <source src="https://media.8ch.net/f1/src/1430189582390.webm" type="video/webm">
+            </video>
             <div class="container">
                 <h1>Bobcat Racing</h1>
                 <p>Put some cool video here or something!</p>
             </div>
         </div>
-        <div class="container-fluid">
+        <div class="container-fluid" id="main-content">
             <div class="col-md-10 col-md-offset-1" role=main>
                 <div class="row" id="donate">
                     <div class="col-md-6" id="gantt">
