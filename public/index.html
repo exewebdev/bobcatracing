@@ -48,14 +48,18 @@
                     <div class="col-md-6" id="agenda">
                         <h2>Upcoming Events</h2>
                         <div class="list-group">
-                            <div class="list-group-item">
-                                <h4 class="list-group-item-heading">Event Title - March 30, 2016</h4>
-                                Come see something awesome!
-                            </div>
-                            <div class="list-group-item">
-                                <h4 class="list-group-item-heading">Some Event - April 15, 2016</h4>
-                                Chat with the team at our event.
-                            </div>
+                            {% if calendar == null %}
+                                <div class="list-group-item">
+                                    <h4>No upcoming events.</h4>
+                                </div>
+                            {% else %}
+                                {% for event in calendar %}
+                                <div class="list-group-item">
+                                    <h4 class="list-group-item-heading"><strong>{{event.summary}}</strong> - {{event.start.dateTime.toLocaleDateString()}} {{event.start.dateTime.toLocaleTimeString()}}</h4>
+                                    {{event.description}}
+                                </div>
+                                {% endfor %}
+                            {% endif %}
                         </div>
                     </div>
                 </div>
