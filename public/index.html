@@ -1,88 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Bobcat Racing</title>
-        <script src="/vendors/jquery/dist/jquery.min.js"></script>
-        <script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="/vendors/vide/dist/jquery.vide.js"></script>
-        <link rel="stylesheet" href="/vendors/bootstrap/dist/css/bootstrap.min.css" type="text/css"/>
-    </head>
-    <body>
-        <nav class="navbar navbar-inverse navbar-default navbar-fixed-top">
-            
-        </nav>
-        <div class="jumbotron" id="hero">
-            <div class="container">
-                <h1>Bobcat Racing</h1>
-                <p>Put some cool video here or something!</p>
-            </div>
+
+<head>
+    <title>Bobcat Racing</title>
+    <script src="/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/vendors/vide/dist/jquery.vide.js"></script>
+    <script src="https://checkout.stripe.com/checkout.js"></script>
+    <link rel="stylesheet" href="/vendors/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse navbar-default navbar-fixed-top">
+
+    </nav>
+    <div class="jumbotron" id="hero">
+        <div class="container">
+            <h1>Bobcat Racing</h1>
+            <p>Put some cool video here or something!</p>
         </div>
-        <div class="container-fluid">
-            <div class="col-md-10 col-md-offset-1" role=main>
-                <div class="row" id="donate">
-                    <div class="col-md-6" id="gantt">
-                        <h2>Our Progress</h2>
+    </div>
+    <div class="container-fluid">
+        <div class="col-md-10 col-md-offset-1" role=main>
+            <div class="row" id="donate">
+                <div class="col-md-6" id="gantt">
+                    <h2>Our Progress</h2>
+                </div>
+                <div class="col-md-6" id="donateBox">
+                    <h2>Sponsor the Cats</h2>
+                    <div class="col-md-8">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-lg progress-bar-success" aria-valuenow="40" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
+                                $20,000
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-6" id="donateBox">
-                        <h2>Sponsor the Cats</h2>
-                        <div class="col-md-8">
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-success" 
-                                aria-valuenow="40" role="progressbar" aria-valuemin="0" aria-valuemax="100"
-                                style="width: 40%;">
-                                    $20,000
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#donate-modal">Donate</button>
+                        <!-- Donation modal -->
+                        <div id="donate-modal" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h3 class="modal-title">Donate</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <strong>Thanks for supporting Bobcat Racing!</strong>
+                                        <form id="donateOptions">
+                                            <div class="input-group">
+                                                <label for="donorName">Name</label>
+                                                <input id="donorName" class="form-control" type="text">
+                                            </div>
+                                            <div id="donationAmount" class="input-group">
+                                                <div id="tab" class="input-group-btn" data-toggle="buttons">
+                                                    <label class="btn btn-success active">
+                                                        <input type="radio" name="donateSelect" title="$5" id="donateFive" value="500"> $5
+                                                    </label>
+                                                    <label class="btn btn-success">
+                                                        <input type="radio" name="donateSelect" title="$10" id="donateTen" value="1000"> $10
+                                                    </label>
+                                                    <label class="btn btn-success">
+                                                        <input type="radio" name="donateSelect" title="$20" id="donateTwenty" value="2000"> $20
+                                                    </label>
+                                                    <label class="btn btn-success">
+                                                        <input type="radio" name="donateSelect" title="$50" id="donateFifty" value="5000"> $50
+                                                    </label>
+                                                    <label class="btn btn-success">
+                                                        <input type="radio" name="donateSelect" title="Custom Amount" id="donateCustom" value="custom"> Custom Amount
+                                                    </label>
+                                                </div>
+                                                <input type="number" id="donateAmount" class="form-control" value="50">
+                                            </div>
+                                            <br>
+                                            <button type="submit" class="btn btn-primary" id="customButton">Donate</button>
+                                        </form>
+                                        <!-- Donation box script -->
+                                        <script>
+                                            var handler = StripeCheckout.configure({
+                                                key: 'pk_test_6pRNASCoBOKtIshFeQd4XMUh',
+                                                locale: 'auto',
+                                                token: function(token) {
+                                                    //Performs an Ajax call to the server for donations
+                                                    $.ajax("/api/donate/stripe", {
+                                                        method: "POST",
+                                                        data: {
+                                                            token: token,
+                                                            amount: amount
+                                                        },
+                                                        success: function(data, status, xhr) {
+                                                            if (data.status == "success") {
+                                                                //We successfully recieved a donation, do stuff
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                            });
+
+                                            $('#customButton').on('click', function(e) {
+                                                // Open Checkout with further options
+                                                var amount = 500;
+                                                if ($('#donateCustom').is(':checked')) {
+                                                    amount = $('#donateAmount').val() * 100;
+                                                }
+                                                else {
+                                                    amount = $("#donateOptions input[type='radio']:checked").val();
+                                                }
+                                                handler.open({
+                                                    name: 'Example donation',
+                                                    description: 'Thanks for your donation!',
+                                                    amount: amount
+                                                });
+                                                e.preventDefault();
+                                            });
+
+                                            // Close Checkout on page navigation
+                                            $(window).on('popstate', function() {
+                                                handler.close();
+                                            });
+                                        </script>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <a href="#" class="btn btn-primary">Donate</a>
-                        </div>
-                        <br>
-                        <h3><strong>Goal:</strong> $50,000</h3>
                     </div>
+                    <br>
+                    <h3><strong>Goal:</strong> $50,000</h3>
                 </div>
-                <div class="row" id="about">
-                    <div class="col-md-6" id="teams">
-                        <h2>Meet the Team</h2>
-                    </div>
-                    <div class="col-md-6" id="agenda">
-                        <h2>Upcoming Events</h2>
-                        <div class="list-group">
-                            <div class="list-group-item">
-                                <h4 class="list-group-item-heading">Event Title - March 30, 2016</h4>
-                                Come see something awesome!
-                            </div>
-                            <div class="list-group-item">
-                                <h4 class="list-group-item-heading">Some Event - April 15, 2016</h4>
-                                Chat with the team at our event.
-                            </div>
+            </div>
+            <div class="row" id="about">
+                <div class="col-md-6" id="teams">
+                    <h2>Meet the Team</h2>
+                </div>
+                <div class="col-md-6" id="agenda">
+                    <h2>Upcoming Events</h2>
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <h4 class="list-group-item-heading">Event Title - March 30, 2016</h4> Come see something awesome!
+                        </div>
+                        <div class="list-group-item">
+                            <h4 class="list-group-item-heading">Some Event - April 15, 2016</h4> Chat with the team at our event.
                         </div>
                     </div>
                 </div>
-                <div class="row" id="sponsors">
-                    <div class="col-md-12">
-                        <h1 class="text-center">A HUGE thanks to our 2016 sponsors!</h1>
-                    </div>
+            </div>
+            <div class="row" id="sponsors">
+                <div class="col-md-12">
+                    <h1 class="text-center">A HUGE thanks to our 2016 sponsors!</h1>
                 </div>
-                <div class="row" id="updates">
-                    <div class="col-md-8">
-                        <h3>Contact Us</h3>
-                        <address>
+            </div>
+            <div class="row" id="updates">
+                <div class="col-md-8">
+                    <h3>Contact Us</h3>
+                    <address>
                             <strong>Bobcat Racing</strong><br>
                             601 University Dr<br>
                             San Marcos, TX 78666<br>
                             <abbr title="Phone">P:</abbr> (123) 456-7890
                         </address>
-                    </div>
-                    <div class="col-md-4">
-                        <h3>Sign up for updates about our build:</h3>
-                        <form id='updatesform' class="form-inline">
-                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-                            <button type="submit" class="btn btn-primary">Sign Up</button>
-                        </form>
-                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h3>Sign up for updates about our build:</h3>
+                    <form id='updatesform' class="form-inline">
+                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                        <button type="submit" class="btn btn-primary">Sign Up</button>
+                    </form>
                 </div>
             </div>
         </div>
-    </body>
+    </div>
+</body>
+
 </html>
