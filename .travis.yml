@@ -2,3 +2,5 @@ language: node_js
 before_script:
   - npm install -g grunt-cli
 script : grunt
+notifications:
+  slack: exewebdev:Un8dfujX8yQpjAFdWd2orFnO
