@@ -35,5 +35,10 @@ node_modules
 # Config Files
 config.js
 
+<<<<<<< HEAD
 # Webstorm idea directory
 .idea/
+=======
+# Key files
+lib/auth
+>>>>>>> videobg

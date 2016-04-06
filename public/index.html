@@ -56,47 +56,16 @@
         </div>
     </nav>
         <div class="jumbotron" id="hero">
+            <div class="hero-video-overlay"></div>
+            <video autoplay loop muted class="hero-video">
+                <source src="https://media.8ch.net/f1/src/1430189582390.webm" type="video/webm">
+            </video>
             <div class="container">
                 <h1>Bobcat Racing</h1>
                 <p>Put some cool video here or something!</p>
             </div>
         </div>
-        <div class="container-fluid">
-            <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#myCarousel" data-slide-to="1"></li>
-                    <li data-target="#myCarousel" data-slide-to="2"></li>
-                    <li data-target="#myCarousel" data-slide-to="3"></li>
-                </ol>
-
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                        <img src="/images/event_large.jpg" alt="Chania img-responsive">
-                    </div>
-
-                    <div class="item">
-                        <img src="/images/club_large.jpg" alt="Chania img-responsive" >
-                    </div>
-
-                    <div class="item">
-                        <img src="/images/project_large.jpg" alt="Flower img-responsive" >
-                    </div>
-
-                </div>
-
-                <!-- Left and right controls -->
-                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
+        <div class="container-fluid" id="main-content">
             <div class="col-md-10 col-md-offset-1" role=main>
                 <div class="row" id="donate">
                     <div class="col-md-6" id="gantt">
@@ -127,14 +96,18 @@
                     <div class="col-md-6" id="agenda">
                         <h2>Upcoming Events</h2>
                         <div class="list-group">
-                            <div class="list-group-item">
-                                <h4 class="list-group-item-heading">Event Title - March 30, 2016</h4>
-                                Come see something awesome!
-                            </div>
-                            <div class="list-group-item">
-                                <h4 class="list-group-item-heading">Some Event - April 15, 2016</h4>
-                                Chat with the team at our event.
-                            </div>
+                            {% if calendar == null %}
+                                <div class="list-group-item">
+                                    <h4>No upcoming events.</h4>
+                                </div>
+                            {% else %}
+                                {% for event in calendar %}
+                                <div class="list-group-item">
+                                    <h4 class="list-group-item-heading"><strong>{{event.summary}}</strong> - {{event.start.dateTime.toLocaleDateString()}} {{event.start.dateTime.toLocaleTimeString()}}</h4>
+                                    {{event.description}}
+                                </div>
+                                {% endfor %}
+                            {% endif %}
                         </div>
                     </div>
                 </div>

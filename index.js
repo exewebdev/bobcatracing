@@ -1,9 +1,4 @@
-var express = require('express');
-var app = express();
-var swig = require('swig');
-var bodyParser = require('body-parser');
 var fs = require('fs');
-
 var config;
 //Create new config file if one not found
 try {
@@ -13,6 +8,13 @@ try {
     console.log("New config file config.js created");
     config = require('./config.js');
 }
+
+var express = require('express');
+var app = express();
+var calendar = require('./lib/calendar.js');
+var swig = require('swig');
+var bodyParser = require('body-parser');
+
 
 //Use Swig render engine as middleware for HTML files
 app.engine('html', swig.renderFile);
@@ -30,7 +32,12 @@ if (config.production === false){
 
 //Route for homepage
 app.get("/", function(req, res){
-    res.render("index.html");
+    calendar.getEvents(5, function(err, events){
+        if (err && err != "No events"){
+            console.error("Error fetching calendar events: " + err);
+        }
+        res.render("index.html", {calendar: events});
+    });
 });
 
 //End express routes
