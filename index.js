@@ -6,12 +6,11 @@ var fs = require('fs');
 
 var config;
 //Create new config file if one not found
-try {
-    config = require('./config.js');
-} catch (e){
+if (fs.existsSync('/config.js')) {
+    config = require('./config');
+} else {
     fs.writeFileSync('./config.js', fs.readFileSync('./config.js.example'));
-    console.log("New config file config.js created");
-    config = require('./config.js');
+    config = require('./config');
 }
 
 //Use Swig render engine as middleware for HTML files
