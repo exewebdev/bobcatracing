@@ -1,140 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Bobcat Racing</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="/vendors/jquery/dist/jquery.min.js"></script>
-        <script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="/vendors/vide/dist/jquery.vide.js"></script>
-        <link rel="stylesheet" href="/vendors/bootstrap/dist/css/bootstrap.min.css" type="text/css"/>
-        <link rel="stylesheet" type="text/css" href="/css/site.css"/>
-    </head>
-    <body>
+
+<head>
+    <title>Bobcat Racing</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/vendors/vide/dist/jquery.vide.js"></script>
+    <script src="https://checkout.stripe.com/checkout.js"></script>
+    <link rel="stylesheet" href="/vendors/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/css/site.css" />
+</head>
+
+<body>
     <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
         <div class="container">
             <div class="row">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" title="mobile navbar toggle"
-                                data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                    </div>
-                    <div class="collapse navbar-collapse navbar-fixed-top navbar-inverse" id="navbar">
-                        <ul class="nav navbar-nav">
-                            <li><a href="#hero">Home</a></li>
-                            <li><a href="#agenda">Calendar</a></li>
-                            <li><a href="#about">Projects</a></li>
-                            <li><a href="#sponsors">Sponsors</a></li>
-                            <li><a href="#updatesform">Updates</a></li>
-                        </ul>
-                        <ul class="nav navbar-nav navbar-right" style="margin-right: 5px;">
-                            <li><a href="#updates">Contact Us</a></li>
-                            <li><a href="#donate">Donate</a></li>
-                        </ul>
-                        <script>
-                                $(document).ready(function(){
-                                $('.nav li a').click(function() {
-                                    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'')
-                                            && location.hostname == this.hostname) {
-                                        var $target = $(this.hash);
-                                        $target = $target.length && $target
-                                                || $('[name=' + this.hash.slice(1) +']');
-                                        if ($target.length) {
-                                            var targetOffset = $target.offset().top;
-                                            $('html,body')
-                                                    .animate({scrollTop: targetOffset}, 1000);
-                                            return false;
-                                        }
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" title="mobile navbar toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse navbar-fixed-top navbar-inverse" id="navbar">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="#agenda">Calendar</a></li>
+                        <li><a href="#about">Projects</a></li>
+                        <li><a href="#sponsors">Sponsors</a></li>
+                        <li><a href="#updatesform">Updates</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right" style="margin-right: 5px;">
+                        <li><a href="#updates">Contact Us</a></li>
+                        <li><a href="#donate">Donate</a></li>
+                    </ul>
+                    <script>
+                        $(document).ready(function() {
+                            $('.nav li a').click(function() {
+                                if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                                    var $target = $(this.hash);
+                                    $target = $target.length && $target || $('[name=' + this.hash.slice(1) + ']');
+                                    if ($target.length) {
+                                        var targetOffset = $target.offset().top;
+                                        $('html,body')
+                                            .animate({
+                                                scrollTop: targetOffset
+                                            }, 1000);
+                                        return false;
                                     }
-                                });
+                                }
                             });
-                        </script> <!-- js scrolling script -->
-                    </div> <!-- collapse navbar-collapse-->
+                        });
+                    </script>
+                    <!-- js scrolling script -->
+                </div>
+                <!-- collapse navbar-collapse-->
             </div>
         </div>
     </nav>
-        <div class="jumbotron" id="hero">
-            <div class="hero-video-overlay"></div>
-            <video autoplay loop muted class="hero-video">
-                <source src="https://media.8ch.net/f1/src/1430189582390.webm" type="video/webm">
-            </video>
-            <div class="container">
-                <h1>Bobcat Racing</h1>
-                <p>Put some cool video here or something!</p>
-            </div>
+    <div class="jumbotron" id="hero">
+        <div class="hero-video-overlay"></div>
+        <video autoplay loop muted class="hero-video">
+            <source src="https://media.8ch.net/f1/src/1430189582390.webm" type="video/webm">
+        </video>
+        <div class="container">
+            <h1>Bobcat Racing</h1>
+            <p>Put some cool video here or something!</p>
         </div>
-        <div class="container-fluid" id="main-content">
-            <div class="col-md-10 col-md-offset-1" role=main>
-                <div class="row" id="donate">
-                    <div class="col-md-6" id="gantt">
-                        <h2>Our Progress</h2>
+    </div>
+    <div class="container-fluid" id="main-content">
+        <div class="col-md-10 col-md-offset-1" role=main>
+            <div class="row" id="donate">
+                <div class="col-md-6" id="gantt">
+                    <h2>Our Progress</h2>
+                </div>
+                <div class="col-md-6" id="donateBox">
+                    <h2>Sponsor the Cats</h2>
+                    <div class="col-md-8">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-lg progress-bar-success" aria-valuenow="40" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
+                                $20,000
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-6" id="donateBox">
-                        <h2>Sponsor the Cats</h2>
-                        <div class="col-md-8">
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-success" 
-                                aria-valuenow="40" role="progressbar" aria-valuemin="0" aria-valuemax="100"
-                                style="width: 40%;">
-                                    $20,000
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#donate-modal">Donate</button>
+                        <!-- Donation modal -->
+                        <div id="donate-modal" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h3 class="modal-title">Donate</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <strong>Thanks for supporting Bobcat Racing!</strong>
+                                        <form id="donateOptions">
+                                            <div class="input-group">
+                                                <label for="donorName">Name</label>
+                                                <input id="donorName" class="form-control" type="text">
+                                            </div>
+                                            <div id="donationAmount" class="input-group">
+                                                <div id="tab" class="input-group-btn" data-toggle="buttons">
+                                                    <label class="btn btn-success active">
+                                                        <input type="radio" name="donateSelect" title="$5" id="donateFive" value="500"> $5
+                                                    </label>
+                                                    <label class="btn btn-success">
+                                                        <input type="radio" name="donateSelect" title="$10" id="donateTen" value="1000"> $10
+                                                    </label>
+                                                    <label class="btn btn-success">
+                                                        <input type="radio" name="donateSelect" title="$20" id="donateTwenty" value="2000"> $20
+                                                    </label>
+                                                    <label class="btn btn-success">
+                                                        <input type="radio" name="donateSelect" title="$50" id="donateFifty" value="5000"> $50
+                                                    </label>
+                                                    <label class="btn btn-success">
+                                                        <input type="radio" name="donateSelect" title="Custom Amount" id="donateCustom" value="custom"> Custom Amount
+                                                    </label>
+                                                </div>
+                                                <input type="number" id="donateAmount" class="form-control" value="50">
+                                            </div>
+                                            <br>
+                                            <button type="submit" class="btn btn-primary" id="customButton">Donate</button>
+                                        </form>
+                                        <!-- Donation box script -->
+                                        <script>
+                                            var handler = StripeCheckout.configure({
+                                                key: 'pk_test_6pRNASCoBOKtIshFeQd4XMUh',
+                                                locale: 'auto',
+                                                token: function(token) {
+                                                    //Performs an Ajax call to the server for donations
+                                                    $.ajax("/api/donate/stripe", {
+                                                        method: "POST",
+                                                        data: {
+                                                            token: token,
+                                                            amount: amount
+                                                        },
+                                                        success: function(data, status, xhr) {
+                                                            if (data.status == "success") {
+                                                                //We successfully recieved a donation, do stuff
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                            $('#customButton').on('click', function(e) {
+                                                // Open Checkout with further options
+                                                var amount = 500;
+                                                if ($('#donateCustom').is(':checked')) {
+                                                    amount = $('#donateAmount').val() * 100;
+                                                }
+                                                else {
+                                                    amount = $("#donateOptions input[type='radio']:checked").val();
+                                                }
+                                                handler.open({
+                                                    name: 'Example donation',
+                                                    description: 'Thanks for your donation!',
+                                                    amount: amount
+                                                });
+                                                e.preventDefault();
+                                            });
+                                            // Close Checkout on page navigation
+                                            $(window).on('popstate', function() {
+                                                handler.close();
+                                            });
+                                        </script>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <a href="#" class="btn btn-primary">Donate</a>
+                    </div>
+                    <br>
+                    <h3><strong>Goal:</strong> $50,000</h3>
+                </div>
+            </div>
+            <div class="row" id="about">
+                <div class="col-md-6" id="teams">
+                    <h2>Meet the Team</h2>
+                </div>
+                <div class="col-md-6" id="agenda">
+                    <h2>Upcoming Events</h2>
+                    <div class="list-group">
+                        {% if calendar == null %}
+                        <div class="list-group-item">
+                            <h4>No upcoming events.</h4>
                         </div>
-                        <br>
-                        <h3><strong>Goal:</strong> $50,000</h3>
-                    </div>
-                </div>
-                <div class="row" id="about">
-                    <div class="col-md-6" id="teams">
-                        <h2>Meet the Team</h2>
-                    </div>
-                    <div class="col-md-6" id="agenda">
-                        <h2>Upcoming Events</h2>
-                        <div class="list-group">
-                            {% if calendar == null %}
-                                <div class="list-group-item">
-                                    <h4>No upcoming events.</h4>
-                                </div>
-                            {% else %}
-                                {% for event in calendar %}
-                                <div class="list-group-item">
-                                    <h4 class="list-group-item-heading"><strong>{{event.summary}}</strong> - {{event.start.dateTime.toLocaleDateString()}} {{event.start.dateTime.toLocaleTimeString()}}</h4>
-                                    {{event.description}}
-                                </div>
-                                {% endfor %}
-                            {% endif %}
+                        {% else %} {% for event in calendar %}
+                        <div class="list-group-item">
+                            <h4 class="list-group-item-heading"><strong>{{event.summary}}</strong> - {{event.start.dateTime.toLocaleDateString()}} {{event.start.dateTime.toLocaleTimeString()}}</h4> {{event.description}}
                         </div>
-                    </div>
-                </div>
-                <div class="row" id="sponsors">
-                    <div class="col-md-12">
-                        <h1 class="text-center">A HUGE thanks to our 2016 sponsors!</h1>
-                    </div>
-                </div>
-                <div class="row" id="updates">
-                    <div class="col-md-8">
-                        <h3>Contact Us</h3>
-                        <address>
-                            <strong>Bobcat Racing</strong><br>
-                            601 University Dr<br>
-                            San Marcos, TX 78666<br>
-                            <abbr title="Phone">P:</abbr> (123) 456-7890
-                        </address>
-                    </div>
-                    <div class="col-md-4">
-                        <h3>Sign up for updates about our build:</h3>
-                        <form id='updatesform' class="form-inline">
-                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-                            <button type="submit" class="btn btn-primary">Sign Up</button>
-                        </form>
+                        {% endfor %} {% endif %}
                     </div>
                 </div>
             </div>
         </div>
-    </body>
+        <div class="row" id="sponsors">
+            <div class="col-md-12">
+                <h1 class="text-center">A HUGE thanks to our 2016 sponsors!</h1>
+            </div>
+        </div>
+        <div class="row" id="updates">
+            <div class="col-md-8">
+                <h3>Contact Us</h3>
+                <address>
+                    <strong>Bobcat Racing</strong><br>
+                    601 University Dr<br>
+                    San Marcos, TX 78666<br>
+                    <abbr title="Phone">P:</abbr> (123) 456-7890
+                </address>
+            </div>
+            <div class="col-md-4">
+                <h3>Sign up for updates about our build:</h3>
+                <form id='updatesform' class="form-inline">
+                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
 </html>

@@ -20,6 +20,7 @@ module.exports = function(grunt) {
                 },
                 //the following are ignored by the accessability checker - if edited, please leave rationale for doing so!
                 ignore :[
+                    "WCAG2A.Principle2.Guideline2_4.2_4_1.H64.1" //ignored becuse thrown by stripe iframe - unfixable
                 ]
             },
             test : {
