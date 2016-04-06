@@ -23,16 +23,35 @@
                     </div>
                     <div class="collapse navbar-collapse navbar-fixed-top navbar-inverse" id="navbar">
                         <ul class="nav navbar-nav">
-                            <li><a href="/index.html">Home</a></li>
-                            <li><a href="#">Calender</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Projects</a></li>
+                            <li><a href="#hero">Home</a></li>
+                            <li><a href="#agenda">Calendar</a></li>
+                            <li><a href="#about">Projects</a></li>
+                            <li><a href="#sponsors">Sponsors</a></li>
+                            <li><a href="#updatesform">Updates</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right" style="margin-right: 5px;">
-                            <li><a href="#">Donate</a></li>
+                            <li><a href="#updates">Contact Us</a></li>
+                            <li><a href="#donate">Donate</a></li>
                         </ul>
+                        <script>
+                                $(document).ready(function(){
+                                $('.nav li a').click(function() {
+                                    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'')
+                                            && location.hostname == this.hostname) {
+                                        var $target = $(this.hash);
+                                        $target = $target.length && $target
+                                                || $('[name=' + this.hash.slice(1) +']');
+                                        if ($target.length) {
+                                            var targetOffset = $target.offset().top;
+                                            $('html,body')
+                                                    .animate({scrollTop: targetOffset}, 1000);
+                                            return false;
+                                        }
+                                    }
+                                });
+                            });
+                        </script> <!-- js scrolling script -->
                     </div> <!-- collapse navbar-collapse-->
-
             </div>
         </div>
     </nav>
